@@ -72,4 +72,33 @@ d3.json(queryUrl).then(function(response) {
     collapsed: false
   }).addTo(myMap);
 
+  var legend = L.control({position: 'bottomright' });
+
+  legend.onAdd = function (map) {
+    
+  var div = L.DomUtil.create('div', 'info legend'),
+      grades = ["-10-10", "10-30","30-50","50-70","70-90","90+"],
+      labels = ['<strong> Earthquake Depth </strong>'],
+      labels = [];
+      function getValue(x) {
+        if(x < 10) {return "green"}
+        if(x < 30) {return "yellow"}
+        if(x < 50) {return "mustard"}
+        if(x < 70) {return "orange"}
+        if(x < 90) {return "firebrick"}
+        if(x > 90) {return "red"}
+      }
+
+  // loop through our density intervals and generate a label with a colored square for each interval
+  for (var i = 0; i < grades.length; i++) {
+      div.innerHTML +=
+          '<i style="background:' + getValue(grades[i]) + '"></i> ' +
+          grades[i] + '<br>';
+  }
+
+  return div;
+  };
+  legend.addTo(myMap);
+
+
 });
