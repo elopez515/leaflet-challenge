@@ -31,24 +31,26 @@ d3.json(queryUrl).then(function(response) {
     function cirleColor(depth) {
       console.log("depth:",depth)
 
-      if (depth > 90){
-          color = "#E62817";
-      }
-      else if (depth > 70){
-          color = "#E66317";
-      }
-      else if (depth > 50){
-          color = "#E6CA17";
-      }
-      else if (depth > 30){
-          color = "#D4EE00";
-      }
-      else if (depth > 10){
-          color = "#78E617";
-      }
-      else {
-          color = "#17E6DF";
-      }
+      for (var i = 0; i < depth; i++) {
+        if (depth > 90){
+            color = "#E62817";
+        }
+        else if (depth > 70){
+            color = "#E66317";
+        }
+        else if (depth > 50){
+            color = "#E6CA17";
+        }
+        else if (depth > 30){
+            color = "#D4EE00";
+        }
+        else if (depth > 10){
+            color = "#78E617";
+        }
+        else {
+            color = "#17E6DF";
+        }
+      }  
    }
 
   // Define streetmap and darkmap layers
