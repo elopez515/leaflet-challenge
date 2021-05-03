@@ -19,14 +19,37 @@ d3.json(queryUrl).then(function(response) {
     pointToLayer: (featureData, latlng) => 
     {
       console.log("featureData: ", featureData)
-      // console.log("latlng: ", latlng)
+      console.log("latlng: ", latlng)
 
       
       return L.circle(latlng,
-        {radius: featureData.properties.mag*10000}
+        {radius: featureData.properties.mag*10000},
+        {fillColor: cirleColor(featureData.geometry.coordinates[2])}
         )
   }
   });
+    function cirleColor(depth) {
+      console.log("depth:",depth)
+
+      if (depth > 90){
+          color = "#E62817";
+      }
+      else if (depth > 70){
+          color = "#E66317";
+      }
+      else if (depth > 50){
+          color = "#E6CA17";
+      }
+      else if (depth > 30){
+          color = "#D4EE00";
+      }
+      else if (depth > 10){
+          color = "#78E617";
+      }
+      else {
+          color = "#17E6DF";
+      }
+   }
 
   // Define streetmap and darkmap layers
   var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
@@ -38,17 +61,9 @@ d3.json(queryUrl).then(function(response) {
     accessToken: API_KEY
   });
 
-  var darkmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-    maxZoom: 18,
-    id: "dark-v10",
-    accessToken: API_KEY
-  });
-
   // Define a baseMaps object to hold our base layers
   var baseMaps = {
     "Street Map": streetmap,
-    // "Dark Map": darkmap
   };
 
   // Create overlay object to hold our overlay layer
@@ -97,6 +112,4 @@ d3.json(queryUrl).then(function(response) {
   };
   // legend to the map.
   legend.addTo(myMap);
-
-
 });
