@@ -18,20 +18,24 @@ d3.json(queryUrl).then(function(response) {
 
     pointToLayer: (featureData, latlng) => 
     {
-      console.log("featureData: ", featureData)
-      console.log("latlng: ", latlng)
+      // console.log("featureData: ", featureData)
+      // console.log("latlng: ", latlng)
 
       
       return L.circle(latlng,
-        {radius: featureData.properties.mag*10000},
-        {fillColor: cirleColor(featureData.geometry.coordinates[2])}
+        {radius: featureData.properties.mag*10000,
+        fillColor: cirleColor(featureData.geometry.coordinates[2]),
+        fillOpacity: 1,
+        opacity: 1
+      }
         )
   }
   });
+  
     function cirleColor(depth) {
       console.log("depth:",depth)
 
-      for (var i = 0; i < depth; i++) {
+     
         if (depth > 90){
             color = "#E62817";
         }
@@ -50,7 +54,7 @@ d3.json(queryUrl).then(function(response) {
         else {
             color = "#17E6DF";
         }
-      }  
+      return color
    }
 
   // Define streetmap and darkmap layers
